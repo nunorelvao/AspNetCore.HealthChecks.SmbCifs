@@ -15,14 +15,14 @@ jobs:
         dotnet-version: 2.2.108
       
     - name: Test
-      run: dotnet test dotnet build
+      run: dotnet test
       
     - name: Build
       run: dotnet build --configuration Release
       
     - name: Publish NuGet
       uses: rohith/publish-nuget@v1.2.0
-      with:
+      #with:
         # Project (csproj) directory path relative from the root of repository
         #project_dir: # optional, default is .
         # Format of the tag to be created, `*` is placeholder for actual version
