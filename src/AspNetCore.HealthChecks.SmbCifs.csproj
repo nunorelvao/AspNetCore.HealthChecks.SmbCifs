@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
     <PackageId>AspNetCore.HealthChecks.SmbCifs</PackageId>       
   </PropertyGroup>
   <ItemGroup>
