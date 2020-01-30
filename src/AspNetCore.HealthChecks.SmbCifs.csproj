@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>AspNetCore.HealthChecks.SmbCifs</PackageId>       
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpCifs.Std" Version="$(SharpCifsStd)" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="$(MicrosoftExtensionsDiagnosticsHealthChecks)" />
+  </ItemGroup>
+</Project>

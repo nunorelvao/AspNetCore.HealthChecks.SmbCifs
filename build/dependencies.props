@@ -1,0 +1,59 @@
+<Project>
+	<PropertyGroup Label="SDK Versions">
+		<TargetFramework>netcoreapp2.0</TargetFramework>
+		<NetStandardTargetVersion>netstandard2.0</NetStandardTargetVersion>
+		<NetCoreTargetVersion>netcoreapp2.0</NetCoreTargetVersion>
+		<!-- <MicrosoftNETTestSdk>16.3.0</MicrosoftNETTestSdk> -->
+		<MicrosoftNETTestSdk>16.4.0</MicrosoftNETTestSdk>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Package information">
+		<Copyright>Nuno Relvão</Copyright>
+		<Description>Extension to be used in HealthCheckUI of Xabaril/AspNetCore.Diagnostics.HealthChecks
+More information on the parent project at:
+<a href="https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks"> Xabaril/AspNetCore.Diagnostics.HealthChecks</a></Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RepositoryUrl>https://github.com/nunorelvao/AspNetCore.HealthChecks.SmbCifs</RepositoryUrl>
+		<PackageProjectUrl>http://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks</PackageProjectUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>true</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<RepositoryType>git</RepositoryType>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageLicenseFile>Licence.txt</PackageLicenseFile>
+		<PackageId>AspNetCore.HealthChecks.SmbCifs</PackageId>
+		<Version>2.0.5</Version>
+		<Authors>Nuno Relvao</Authors>
+		<Company>Nuno Relvao</Company>
+		<Product>AspNetCore.HealthChecks.GCP.CloudStorage</Product>
+		<PackageReleaseNotes>This version is based on Net Standard 2.0 to be used with .Net Core 2.x and above</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Package Versions">
+		<MicrosoftExtensionsDiagnosticsHealthChecks>2.2.0</MicrosoftExtensionsDiagnosticsHealthChecks>   
+		<MicrosoftExtensionsDependencyInjection>2.2.0</MicrosoftExtensionsDependencyInjection>    
+		<FluentAssertions>5.9.0</FluentAssertions>
+		<xunit>2.4.1</xunit>
+		<xunitrunnervisualstudio>2.4.1</xunitrunnervisualstudio>    
+		<NewtonsoftJson>12.0.2</NewtonsoftJson>   
+		<SharpCifsStd>0.2.13</SharpCifsStd>
+		<GoogleCloudStorage>2.4.0</GoogleCloudStorage>
+	</PropertyGroup>
+
+	<PropertyGroup Label="CLI Tools Versions">
+		<DotnetXUnitPackageVersion>2.4.1</DotnetXUnitPackageVersion>
+		<DotnetWatcherToolPackageVersion>2.0.0</DotnetWatcherToolPackageVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Health Checks Package Versions">   
+		<HealthCheckCloudCloudStorage>3.0.0</HealthCheckCloudCloudStorage>
+		<HealthCheckCloudSmbCifs>3.0.0</HealthCheckCloudSmbCifs>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\Licence.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+</Project>
