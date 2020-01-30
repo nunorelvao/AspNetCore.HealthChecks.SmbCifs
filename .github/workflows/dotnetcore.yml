@@ -21,11 +21,12 @@ jobs:
       run: dotnet build --configuration Release
       
     - name: Publish NuGet
-      uses: rohith/publish-nuget@v1.2.0
+      uses: rohith/publish-nuget@v2
       with:
-        # Project (csproj) directory path relative from the root of repository
-        #project_dir: # optional, default is .
-        # Format of the tag to be created, `*` is placeholder for actual version
-        #tag_format: # optional, default is v*
-        # API key for the NuGet feed
-        nuget_key: ${{secrets.NUGET_API_KEY}}
+        PROJECT_FILE_PATH: src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+        VERSION_FILE_PATH: build/Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
+      # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+      # TAG_COMMIT: true # Flag to enable / disalge git tagging
+      # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
+      # NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key      
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
