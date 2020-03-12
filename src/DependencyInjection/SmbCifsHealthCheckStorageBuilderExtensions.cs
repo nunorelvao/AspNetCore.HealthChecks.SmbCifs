@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace HealthChecks.SmbCifs.DependencyInjection
+namespace AspNetCore.HealthChecks.SmbCifs.DependencyInjection
 {
     public static class SmbCifsHealthCheckStorageBuilderExtensions
     {
@@ -21,15 +21,13 @@ namespace HealthChecks.SmbCifs.DependencyInjection
         /// the default status of <see cref="HealthStatus.Unhealthy"/> will be reported.
         /// </param>
         /// <param name="tags">A list of tags that can be used to filter sets of health checks. Optional.</param>
-        /// <param name="timeout">An optional System.TimeSpan representing the timeout of the check.</param>
         /// <returns>The <see cref="IHealthChecksBuilder"/>.</returns></param>
         public static IHealthChecksBuilder AddSmbCifsBasicAuth(
             this IHealthChecksBuilder builder,
             Action<SmbCifsBasicOptions> setup,
             string name = null,
             HealthStatus? failureStatus = null,
-            IEnumerable<string> tags = null,
-            TimeSpan? timeout = default)
+            IEnumerable<string> tags = null)
         {
             var options = new SmbCifsBasicOptions();
             setup?.Invoke(options);
@@ -53,7 +51,6 @@ namespace HealthChecks.SmbCifs.DependencyInjection
         /// the default status of <see cref="HealthStatus.Unhealthy"/> will be reported.
         /// </param>
         /// <param name="tags">A list of tags that can be used to filter sets of health checks. Optional.</param>
-        /// <param name="timeout">An optional System.TimeSpan representing the timeout of the check.</param>
         /// <returns>The <see cref="IHealthChecksBuilder"/>.</returns></param>
         public static IHealthChecksBuilder AddSmbCifsExtendedAuth(
             this IHealthChecksBuilder builder,

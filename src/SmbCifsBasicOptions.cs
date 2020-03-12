@@ -1,4 +1,4 @@
-﻿namespace HealthChecks.SmbCifs
+﻿namespace AspNetCore.HealthChecks.SmbCifs
 {
     public class SmbCifsBasicOptions : SmbCifsOptions
     {

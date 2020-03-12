@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SharpCifs.Smb;
 
-namespace HealthChecks.SmbCifs
+namespace AspNetCore.HealthChecks.SmbCifs
 {
     public class SmbCifsStorageHealthCheck : IHealthCheck
     {

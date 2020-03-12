@@ -22,7 +22,7 @@ More information on the parent project at:
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageLicenseFile>Licence.txt</PackageLicenseFile>
 		<!--<PackageId>AspNetCore.HealthChecks.SmbCifs</PackageId>-->
-		<Version>2.0.5</Version>
+		<Version>2.0.6</Version>
 		<Authors>Nuno Relvao</Authors>
 		<Company>Nuno Relvao</Company>
 		<Product>AspNetCore.HealthChecks.SmbCifs</Product>
@@ -30,24 +30,18 @@ More information on the parent project at:
 	</PropertyGroup>
 
 	<PropertyGroup Label="Package Versions">
-		<MicrosoftExtensionsDiagnosticsHealthChecks>2.2.0</MicrosoftExtensionsDiagnosticsHealthChecks>   
+		<MicrosoftExtensionsDiagnosticsHealthChecks>2.2.5</MicrosoftExtensionsDiagnosticsHealthChecks>   
 		<MicrosoftExtensionsDependencyInjection>2.2.0</MicrosoftExtensionsDependencyInjection>    
 		<FluentAssertions>5.9.0</FluentAssertions>
 		<xunit>2.4.1</xunit>
 		<xunitrunnervisualstudio>2.4.1</xunitrunnervisualstudio>    
 		<NewtonsoftJson>12.0.2</NewtonsoftJson>   
 		<SharpCifsStd>0.2.13</SharpCifsStd>
-		<GoogleCloudStorage>2.4.0</GoogleCloudStorage>
 	</PropertyGroup>
 
 	<PropertyGroup Label="CLI Tools Versions">
 		<DotnetXUnitPackageVersion>2.4.1</DotnetXUnitPackageVersion>
 		<DotnetWatcherToolPackageVersion>2.0.0</DotnetWatcherToolPackageVersion>
-	</PropertyGroup>
-
-	<PropertyGroup Label="Health Checks Package Versions">   
-		<HealthCheckCloudCloudStorage>3.0.0</HealthCheckCloudCloudStorage>
-		<HealthCheckCloudSmbCifs>3.0.0</HealthCheckCloudSmbCifs>
 	</PropertyGroup>
 
 	<ItemGroup>

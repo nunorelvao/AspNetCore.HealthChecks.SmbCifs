@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HealthChecks.SmbCifs
+﻿namespace AspNetCore.HealthChecks.SmbCifs
 {
     public class SmbCifsOptions
     {

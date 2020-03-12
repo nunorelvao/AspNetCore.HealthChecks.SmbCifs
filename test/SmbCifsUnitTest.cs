@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AspNetCore.HealthChecks.SmbCifs;
+using AspNetCore.HealthChecks.SmbCifs.DependencyInjection;
 using FluentAssertions;
-using HealthChecks.SmbCifs;
-using HealthChecks.SmbCifs.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
