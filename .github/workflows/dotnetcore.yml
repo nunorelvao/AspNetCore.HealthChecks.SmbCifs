@@ -20,6 +20,8 @@ jobs:
         run: docker logs sambaalpine
       - name: Check exec ip of docker
         run: docker exec sambaalpine ifconfig
+      - name: Check ping from busybox to sambaalpine
+        run: docker exec busybox ping sambaalpine
       - name: Check exec ls shared of docker
         run: docker exec sambaalpine ls /shared
       
