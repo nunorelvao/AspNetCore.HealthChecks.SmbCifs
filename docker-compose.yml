@@ -3,8 +3,8 @@
 volumes: 
     shareddata:
 
-networks:
-    rede: 
+#networks:
+    #rede: 
 
 services:
 
@@ -17,8 +17,8 @@ services:
     hostname: alpine    
     environment:
       - VAR1=var1
-    networks:
-      - rede
+    #networks:
+      #- rede
       
   busybox:
     image: "busybox"
@@ -31,8 +31,8 @@ services:
     hostname: busybox    
     environment:
       - VAR1=var1
-    networks:
-      - rede
+    #networks:
+      #- rede
 
   sambaalpine:
     image: "stevepacker/samba-alpine"
@@ -52,9 +52,9 @@ services:
       - WORKGROUP=WORKGROUP
       - SAMBA_NAME=sambaalpine
       #- SHARE_NAME=shared //only if Directories are not defined and only one volume shared
-    networks:
-      - rede
-    depends_on:
-      - alpine
+    #networks:
+      #- rede
+    #depends_on:
+      #- alpine
     
     
