@@ -23,7 +23,6 @@ jobs:
         #  - "135:135"      
         env:
           - VAR1=var1
-
       sambaalpine:
         image: "stevepacker/samba-alpine"
         ports:
