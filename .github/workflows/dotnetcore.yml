@@ -10,20 +10,16 @@ jobs:
     services:
 
       alpine:
-        image: "alpine:3.6"    
-        container_name: alpine
+        image: "alpine:3.6"  
         command: tail -F anything
         #ports:
         #  - "135:135"    
         hostname: alpine    
         environment:
           - VAR1=var1
-        #networks:
-          #- rede
           
       busybox:
         image: "busybox"
-        container_name: busybox
         volumes:
           - /data
         command: tail -F anything
@@ -32,12 +28,9 @@ jobs:
         hostname: busybox    
         environment:
           - VAR1=var1
-        #networks:
-          #- rede
 
       sambaalpine:
         image: "stevepacker/samba-alpine"
-        container_name: sambaalpine
         ports:
           - "135:135"
           - "137:137"
