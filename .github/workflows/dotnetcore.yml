@@ -6,12 +6,58 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+
+      alpine:
+        image: "alpine:3.6"    
+        container_name: alpine
+        command: tail -F anything
+        #ports:
+        #  - "135:135"    
+        hostname: alpine    
+        environment:
+          - VAR1=var1
+        #networks:
+          #- rede
+          
+      busybox:
+        image: "busybox"
+        container_name: busybox
+        volumes:
+          - /data
+        command: tail -F anything
+        #ports:
+        #  - "135:135"    
+        hostname: busybox    
+        environment:
+          - VAR1=var1
+        #networks:
+          #- rede
+
+      sambaalpine:
+        image: "stevepacker/samba-alpine"
+        container_name: sambaalpine
+        ports:
+          - "135:135"
+          - "137:137"
+          - "138:138"
+          - "139:139"
+          - "4445:445"
+        hostname: sambaalpine
+        volumes:
+          - shareddata:/shared
+          - ~/:/public
+        environment:
+          - DIRECTORIES=shared,public
+          - WORKGROUP=WORKGROUP
+          - SAMBA_NAME=sambaalpine
 
     steps:
       - uses: actions/checkout@v2
       
-      - name: Run composer to add containers for functional Tests
-        run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
+      #- name: Run composer to add containers for functional Tests
+        #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
         
       - name: Check Running Containers
         run: docker ps -a
