@@ -30,7 +30,7 @@ namespace FunctionalTests
         }
 
         [Fact]
-        public async Task be_healthy_if_smbcifs_is_not_available()
+        public async Task be_healthy_if_smbcifs_is_available()
         {
 
             var webHostBuilder = new WebHostBuilder()

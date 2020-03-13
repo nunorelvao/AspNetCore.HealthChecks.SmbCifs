@@ -13,7 +13,7 @@ jobs:
       - name: Run composer to add containers for functional Tests
         run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
         
-      - name: Check Running ontainers
+      - name: Check Running Containers
         run: docker ps -a
         
       - name: Check logs of docker
@@ -28,6 +28,9 @@ jobs:
         with:
           dotnet-version: 2.2.108
      
+      - name: Check acess to alpinesamba
+        run: ping sambaalpine
+        
       - name: Test
         run: dotnet test
 
