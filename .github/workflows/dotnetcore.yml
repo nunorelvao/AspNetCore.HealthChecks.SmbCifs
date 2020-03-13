@@ -13,7 +13,7 @@ jobs:
         image: "alpine:3.6"  
         #ports:
         #  - "135:135"      
-        environment:
+        env:
           - VAR1=var1          
       busybox:
         image: "busybox"
@@ -21,7 +21,7 @@ jobs:
           - /data
         #ports:
         #  - "135:135"      
-        environment:
+        env:
           - VAR1=var1
 
       sambaalpine:
@@ -35,7 +35,7 @@ jobs:
         volumes:
           - shareddata:/shared
           - ~/:/public
-        environment:
+        env:
           - DIRECTORIES=shared,public
           - WORKGROUP=WORKGROUP
           - SAMBA_NAME=sambaalpine
