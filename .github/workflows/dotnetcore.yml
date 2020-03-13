@@ -12,18 +12,15 @@ jobs:
       alpine:
         image: "alpine:3.6"  
         #ports:
-        #  - "135:135"    
-        hostname: alpine    
+        #  - "135:135"      
         environment:
-          - VAR1=var1
-          
+          - VAR1=var1          
       busybox:
         image: "busybox"
         volumes:
           - /data
         #ports:
-        #  - "135:135"    
-        hostname: busybox    
+        #  - "135:135"      
         environment:
           - VAR1=var1
 
@@ -35,7 +32,6 @@ jobs:
           - "138:138"
           - "139:139"
           - "4445:445"
-        hostname: sambaalpine
         volumes:
           - shareddata:/shared
           - ~/:/public
