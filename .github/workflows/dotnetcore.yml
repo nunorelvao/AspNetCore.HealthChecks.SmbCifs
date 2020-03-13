@@ -14,7 +14,7 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1=var1          
+          VAR1: var1          
       busybox:
         image: "busybox"
         volumes:
@@ -22,7 +22,7 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1=var1
+          VAR1: var1
       sambaalpine:
         image: "stevepacker/samba-alpine"
         ports:
@@ -35,9 +35,9 @@ jobs:
           - shareddata:/shared
           - ~/:/public
         env:
-          DIRECTORIES=shared,public
-          WORKGROUP=WORKGROUP
-          SAMBA_NAME=sambaalpine
+          DIRECTORIES: shared,public
+          WORKGROUP: WORKGROUP
+          SAMBA_NAME: sambaalpine
 
     steps:
       - uses: actions/checkout@v2
