@@ -18,7 +18,9 @@ jobs:
         
       - name: Check logs of docker
         run: docker logs sambaalpine
+      - name: Check exec ip of docker
         run: docker exec sambaalpine ifconfig
+      - name: Check exec ls shared of docker
         run: docker exec sambaalpine ls /shared
       
       - name: Setup .NET Core
