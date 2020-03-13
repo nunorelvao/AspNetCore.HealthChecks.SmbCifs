@@ -9,6 +9,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Run composer to add containers for functional Tests
+        run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
+        
+      - name: Check Running ontainers
+        run: docker ps -a
+        
+      - name: Check logs of docker
+        run: docker logs backend
+      
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:

@@ -36,6 +36,8 @@ More information on the parent project at:
 		<xunit>2.4.1</xunit>
 		<xunitrunnervisualstudio>2.4.1</xunitrunnervisualstudio>    
 		<NewtonsoftJson>12.0.2</NewtonsoftJson>   
+		<MicrosoftAspNetCoreTestHost>2.2.0</MicrosoftAspNetCoreTestHost>
+		<MicrosoftExtensionsConfigurationJson>2.2.0</MicrosoftExtensionsConfigurationJson>
 		<SharpCifsStd>0.2.13</SharpCifsStd>
 	</PropertyGroup>
 

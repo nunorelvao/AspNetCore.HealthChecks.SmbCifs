@@ -1,0 +1,30 @@
+﻿version: "3"
+
+volumes: 
+    shareddata:
+
+networks:
+    rede: 
+
+services:
+
+  sambaalpine:
+    image: "pwntr/samba-alpine"
+    container_name: sambaalpine
+    #ports:
+    #  - "135:135"
+    #  - "137:137"
+    #  - "138:138"
+    #  - "139:139"
+    #  - "445:445"
+    hostname: sambaalpine
+    volumes:
+      - shareddata:/shared
+    environment:
+      - VAR1=var1
+    networks:
+      - rede
+    #depends_on:
+     # - redis-commander
+    
+    

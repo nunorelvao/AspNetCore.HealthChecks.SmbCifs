@@ -5,12 +5,14 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.HealthChecks.SmbCifs", "src\AspNetCore.HealthChecks.SmbCifs.csproj", "{C4B44ECF-983E-47D8-BB9C-9373E9558FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "test\Tests.csproj", "{AC0ED693-0861-4CA1-BABE-13C5F247D750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "test\Tests.csproj", "{AC0ED693-0861-4CA1-BABE-13C5F247D750}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C870EADA-E8A8-4AEE-B8CF-A99EF170D46C}"
 	ProjectSection(SolutionItems) = preProject
 		build\dependencies.props = build\dependencies.props
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalTests", "FunctionalTests\FunctionalTests.csproj", "{C44613C9-5713-4DBE-80A3-004E540BD159}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{AC0ED693-0861-4CA1-BABE-13C5F247D750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC0ED693-0861-4CA1-BABE-13C5F247D750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC0ED693-0861-4CA1-BABE-13C5F247D750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44613C9-5713-4DBE-80A3-004E540BD159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44613C9-5713-4DBE-80A3-004E540BD159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44613C9-5713-4DBE-80A3-004E540BD159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44613C9-5713-4DBE-80A3-004E540BD159}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
