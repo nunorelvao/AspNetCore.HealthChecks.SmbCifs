@@ -7,6 +7,8 @@ jobs:
 
     runs-on: ubuntu-latest
     
+    container: node:10.18-jessie
+        
     services:
 
       alpine:
@@ -14,7 +16,8 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1: var1          
+          VAR1: var1   
+          
       busybox:
         image: "busybox"
         volumes:
@@ -23,6 +26,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1
+          
       sambaalpine:
         image: "stevepacker/samba-alpine"
         ports:
