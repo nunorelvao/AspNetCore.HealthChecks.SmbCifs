@@ -11,7 +11,6 @@ jobs:
 
       alpine:
         image: "alpine:3.6"  
-        command: tail -F anything
         #ports:
         #  - "135:135"    
         hostname: alpine    
@@ -22,7 +21,6 @@ jobs:
         image: "busybox"
         volumes:
           - /data
-        command: tail -F anything
         #ports:
         #  - "135:135"    
         hostname: busybox    
