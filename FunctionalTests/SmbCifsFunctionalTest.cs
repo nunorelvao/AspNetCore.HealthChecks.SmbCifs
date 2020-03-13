@@ -42,7 +42,7 @@ namespace FunctionalTests
                         .AddSmbCifsBasicAuth(s =>
                         {
                             s.Hostname = "sambaalpine";
-                            s.Domain = "workgroup";
+                            s.Domain = "WORKGROUP";
                             s.Username = "";
                             s.UserPassword = "";
                         }, "smbcifshc", null, new string[] { "smbcifshc" });
