@@ -41,7 +41,7 @@ namespace FunctionalTests
                     services.AddHealthChecks()
                         .AddSmbCifsBasicAuth(s =>
                         {
-                            s.Hostname = "SAMBAALPINE";
+                            s.Hostname = "sambaalpine";
                             s.Domain = "";
                             s.Username = "";
                             s.UserPassword = "";
