@@ -8,8 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      #- uses: actions/checkout@v2
       
+      
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 2.2.108
+          
+          
       - name: Run composer to add containers for functional Tests
         run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
         
@@ -21,14 +29,9 @@ jobs:
       - name: Check exec ip of docker
         run: docker exec sambaalpine ifconfig
       - name: Check ping from busybox to sambaalpine
-        run: docker exec busybox ping sambaalpine
+        run: docker exec busybox ping sambaalpine -w5
       - name: Check exec ls shared of docker
         run: docker exec sambaalpine ls /shared
-      
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.2.108
      
       - name: Check acess to alpinesamba
         run: ping sambaalpine
