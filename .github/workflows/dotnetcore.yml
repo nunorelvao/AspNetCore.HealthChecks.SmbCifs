@@ -6,20 +6,20 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-            
+    
+    container: mcr.microsoft.com/dotnet/core/sdk
+    
     services:
 
       alpine:
-        container: "alpine:3.6" 
-        entrypoint: tail -F anything    
+        image: "alpine:3.6"     
         #ports:
         #  - "135:135"      
         env:
           VAR1: var1   
           
       busybox:
-        container: "busybox"
-        entrypoint: tail -F anything
+        image: "busybox"
         volumes:
           - /data
         #ports:
@@ -28,7 +28,7 @@ jobs:
           VAR1: var1
           
       sambaalpine:
-        container: "stevepacker/samba-alpine"
+        image: "stevepacker/samba-alpine"
         ports:
           - "135:135"
           - "137:137"
@@ -43,7 +43,9 @@ jobs:
           WORKGROUP: WORKGROUP
           SAMBA_NAME: sambaalpine
 
-    steps:
+  
+  
+  steps:
       - uses: actions/checkout@v2
       
       #- name: Run composer to add containers for functional Tests
@@ -53,7 +55,7 @@ jobs:
         run: docker ps -a
         
       - name: Check logs of docker
-        run: docker logs ${{job.services.sambaalpine}}
+        run: docker logs sambaalpine
       - name: Check exec ip of docker
         run: docker exec sambaalpine ifconfig
       - name: Check ping from busybox to sambaalpine
