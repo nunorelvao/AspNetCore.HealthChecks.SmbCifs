@@ -11,8 +11,6 @@ jobs:
 
       alpine:
         image: "alpine:3.6"  
-        name: alpine
-        cmd: tail -F anything
         #ports:
         #  - "135:135"      
         env:
@@ -34,7 +32,7 @@ jobs:
           - "137:137"
           - "138:138"
           - "139:139"
-          - "4445:445"
+          - "445:445"
         volumes:
           - shareddata:/shared
           - ~/:/public
@@ -53,7 +51,7 @@ jobs:
         run: docker ps -a
         
       - name: Check logs of docker
-        run: docker logs sambaalpine
+        run: docker logs ${{job.services.sambaalpine}}
       - name: Check exec ip of docker
         run: docker exec sambaalpine ifconfig
       - name: Check ping from busybox to sambaalpine
