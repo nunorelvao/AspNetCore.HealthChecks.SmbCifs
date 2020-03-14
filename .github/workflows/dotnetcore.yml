@@ -10,14 +10,16 @@ jobs:
     services:
 
       alpine:
-        image: "alpine:3.6"  
+        container: "alpine:3.6" 
+        entrypoint: tail -F anything    
         #ports:
         #  - "135:135"      
         env:
           VAR1: var1   
           
       busybox:
-        image: "busybox"
+        container: "busybox"
+        entrypoint: tail -F anything
         volumes:
           - /data
         #ports:
@@ -26,7 +28,7 @@ jobs:
           VAR1: var1
           
       sambaalpine:
-        image: "stevepacker/samba-alpine"
+        container: "stevepacker/samba-alpine"
         ports:
           - "135:135"
           - "137:137"
