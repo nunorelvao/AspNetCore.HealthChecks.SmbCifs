@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    container: mcr.microsoft.com/dotnet/core/sdk:2.2
+    # container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
     services:
 
@@ -17,7 +17,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1 
-        # options: --interactive          
+        options: --interactive          
           
       busybox:
         image: "busybox"
@@ -27,7 +27,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1
-        # options: --interactive
+        options: --interactive
           
       sambaalpine:
         image: "stevepacker/samba-alpine"
@@ -44,33 +44,38 @@ jobs:
           DIRECTORIES: shared,public
           WORKGROUP: WORKGROUP
           SAMBA_NAME: sambaalpine
+        # options: --network host
 
   
   
     steps:
-      - name: Checkout Repo to local runner
-        uses: actions/checkout@v2
+      # - name: Checkout Repo to local runner
+        # uses: actions/checkout@v2
       
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
         
-      # - name: Check Running Containers
-        # run: docker ps -a
+      - name: Check Running Containers
+        run: docker ps -a
         
       - name: Check access to alpinesamba
-        run:  ping sambaalpine -n 3
+        run:  echo '${{ job.test.services.sambaalpine }}' 
+        
+        
+      - name: Check access to alpinesamba
+        run:  ping ${{ job.test.services.sambaalpine }}  -n 3
         
       - name: Test
         run: dotnet test
         
-      # - name: Check logs of docker
-        # run: docker logs sambaalpine
-      # - name: Check exec ip of docker
-        # run: docker exec sambaalpine ifconfig
-      # - name: Check ping from busybox to sambaalpine
-        # run: docker exec busybox ping sambaalpine -w3
-      # - name: Check exec ls shared of docker
-        # run: docker exec sambaalpine ls /shared
+      - name: Check logs of docker
+        run: docker logs sambaalpine
+      - name: Check exec ip of docker
+        run: docker exec sambaalpine ifconfig
+      - name: Check ping from busybox to sambaalpine
+        run: docker exec busybox ping sambaalpine -w3
+      - name: Check exec ls shared of docker
+        run: docker exec sambaalpine ls /shared
 
 
   # build:
