@@ -58,31 +58,20 @@ jobs:
       - name: Check Running Containers
         run: docker ps -a
         
-      - name: Check access to alpinesamba
-        run:  echo '${{ job.test.services.sambaalpine }}' 
+      - name: echo samba server image
+        run:  echo '${{ job.test.services.sambaalpine.image }}' 
+       
         
-        
-      - name: Check access to alpinesamba
-        run:  ping ${{ job.test.services.sambaalpine }}  -n 3
-        
-      - name: Test
-        run: dotnet test
-        
-      - name: Check logs of docker
-        run: docker logs sambaalpine
-      - name: Check exec ip of docker
-        run: docker exec sambaalpine ifconfig
-      - name: Check ping from busybox to sambaalpine
-        run: docker exec busybox ping sambaalpine -w3
-      - name: Check exec ls shared of docker
-        run: docker exec sambaalpine ls /shared
+      # - name: Check logs of docker
+        # run: docker logs sambaalpine
+      # - name: Check exec ip of docker
+        # run: docker exec sambaalpine ifconfig
+      # - name: Check ping from busybox to sambaalpine
+        # run: docker exec busybox ping sambaalpine -w3
+      # - name: Check exec ls shared of docker
+        # run: docker exec sambaalpine ls /shared
 
-
-  # build:
-
-    # runs-on: ubuntu-latest
     
-    # steps:
       # - name: Setup .NET Core
         # uses: actions/setup-dotnet@v1
         # with:
