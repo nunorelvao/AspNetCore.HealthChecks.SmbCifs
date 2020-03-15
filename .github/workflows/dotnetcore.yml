@@ -26,7 +26,7 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1: ${{ job.services.alpine }}
+          VAR1: var1
         options: --entrypoint tail -F anything
           
       sambaalpine:
@@ -61,11 +61,11 @@ jobs:
         run: echo  ${{ job.services.sambaalpine }} ${{ job.services.busybox }} ${{ job.services.alpine }}
         
       - name: Check logs of docker
-        run: docker logs ${{build.services.sambaalpine}}
+        run: docker logs sambaalpine
       # - name: Check exec ip of docker
         # run: docker exec sambaalpine ifconfig
       - name: Check ping from busybox to sambaalpine
-        run: docker exec ${{build.services.busybox}} ping sambaalpine -w3
+        run: docker exec busybox ping sambaalpine -w3
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
       
