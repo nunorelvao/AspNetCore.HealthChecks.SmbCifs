@@ -56,7 +56,9 @@ jobs:
         
       # - name: Check Running Containers
         # run: docker ps -a
-       
+        
+      - name: Check access to alpinesamba
+        run:  ping sambaalpine -n 3
         
       - name: Test
         run: dotnet test
