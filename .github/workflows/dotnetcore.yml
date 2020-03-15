@@ -3,7 +3,7 @@ name: .NET Core
 on: [push]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     
@@ -48,8 +48,8 @@ jobs:
   
   
     steps:
-      # - name: GlobalChecks and Echos
-        # uses: actions/checkout@v2
+      - name: GlobalChecks and Echos
+        uses: actions/checkout@v2
       
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
@@ -60,6 +60,12 @@ jobs:
       - name: Echo Services
         run: echo  ${{ job.services.sambaalpine.env['DIRECTORIES'] }} ${{ job.services.busybox.env['VAR1'] }} ${{ job.services.alpine.env['VAR1'] }}
         
+      - name: Check access to alpinesamba
+        run: ping sambaalpine -n 3
+        
+      - name: Test
+        run: dotnet test
+        
       # - name: Check logs of docker
         # run: docker logs sambaalpine
       # - name: Check exec ip of docker
@@ -68,7 +74,13 @@ jobs:
         # run: docker exec busybox ping sambaalpine -w3
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
-      
+
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
