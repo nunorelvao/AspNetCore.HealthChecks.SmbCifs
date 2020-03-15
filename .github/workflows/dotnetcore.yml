@@ -57,12 +57,15 @@ jobs:
       # - name: Check Running Containers
         # run: docker ps -a
         
+      - name: Echo Services
+        run: echo  ${{build.services.sambaalpine}} ${{build.services.busybox}} ${{build.services.alpine}}
+        
       - name: Check logs of docker
-        run: docker logs ${{job.services.sambaalpine}}
+        run: docker logs ${{build.services.sambaalpine}}
       # - name: Check exec ip of docker
         # run: docker exec sambaalpine ifconfig
       - name: Check ping from busybox to sambaalpine
-        run: docker exec ${{job.services.busybox}} ping sambaalpine -w3
+        run: docker exec ${{build.services.busybox}} ping sambaalpine -w3
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
       
