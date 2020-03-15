@@ -17,7 +17,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1 
-        options: --interactive          
+        # options: --interactive          
           
       busybox:
         image: "busybox"
@@ -27,7 +27,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1
-        options: --interactive
+        # options: --interactive
           
       sambaalpine:
         image: "stevepacker/samba-alpine"
@@ -58,7 +58,7 @@ jobs:
         # run: docker ps -a
         
       - name: Echo Services
-        run: echo  ${{ job.services.sambaalpine }} ${{ job.services.busybox }} ${{ job.services.alpine }}
+        run: echo  ${{ job.services.sambaalpine.env[DIRECTORIES] }} ${{ job.services.busybox.env[VAR1] }} ${{ job.services.alpine.env[VAR1] }}
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
@@ -74,7 +74,7 @@ jobs:
         with:
           dotnet-version: 2.2.108
      
-      - name: Check acess to alpinesamba
+      - name: Check access to alpinesamba
         run: ping sambaalpine -n 3
         
       - name: Test
