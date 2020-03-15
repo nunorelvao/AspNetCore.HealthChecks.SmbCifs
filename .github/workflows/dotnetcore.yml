@@ -17,7 +17,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1 
-        options: --entrypoint tail -F anything          
+        options: --interactive          
           
       busybox:
         image: "busybox"
@@ -27,7 +27,7 @@ jobs:
         #  - "135:135"      
         env:
           VAR1: var1
-        options: --entrypoint tail -F anything
+        options: --interactive
           
       sambaalpine:
         image: "stevepacker/samba-alpine"
