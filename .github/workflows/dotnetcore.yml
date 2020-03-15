@@ -26,7 +26,7 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1: ${{build.services.alpine.ports}}
+          VAR1: ${{ job.services.alpine }}
         options: --entrypoint tail -F anything
           
       sambaalpine:
@@ -58,7 +58,7 @@ jobs:
         # run: docker ps -a
         
       - name: Echo Services
-        run: echo  ${{build.services.sambaalpine}} ${{build.services.busybox}} ${{build.services.alpine}}
+        run: echo  ${{ job.services.sambaalpine }} ${{ job.services.busybox }} ${{ job.services.alpine }}
         
       - name: Check logs of docker
         run: docker logs ${{build.services.sambaalpine}}
