@@ -51,17 +51,17 @@ jobs:
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
         
-      - name: Check Running Containers
-        run: docker ps -a
+      # - name: Check Running Containers
+        # run: docker ps -a
         
-      - name: Check logs of docker
-        run: docker logs sambaalpine
-      - name: Check exec ip of docker
-        run: docker exec sambaalpine ifconfig
-      - name: Check ping from busybox to sambaalpine
-        run: docker exec busybox ping sambaalpine -w5
-      - name: Check exec ls shared of docker
-        run: docker exec sambaalpine ls /shared
+      # - name: Check logs of docker
+        # run: docker logs sambaalpine
+      # - name: Check exec ip of docker
+        # run: docker exec sambaalpine ifconfig
+      # - name: Check ping from busybox to sambaalpine
+        # run: docker exec busybox ping sambaalpine -w5
+      # - name: Check exec ls shared of docker
+        # run: docker exec sambaalpine ls /shared
       
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
