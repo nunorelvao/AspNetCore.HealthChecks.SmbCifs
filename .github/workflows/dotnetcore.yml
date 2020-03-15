@@ -16,7 +16,8 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1: var1   
+          VAR1: var1 
+        options: --entrypoint tail -F anything          
           
       busybox:
         image: "busybox"
@@ -25,7 +26,8 @@ jobs:
         #ports:
         #  - "135:135"      
         env:
-          VAR1: var1
+          VAR1: ${{job.services.alpine.ports}}
+        options: --entrypoint tail -F anything
           
       sambaalpine:
         image: "stevepacker/samba-alpine"
@@ -46,7 +48,8 @@ jobs:
   
   
     steps:
-      #- uses: actions/checkout@v2
+      - name: GlobalChecks and Echos
+        uses: actions/checkout@v2
       
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
@@ -54,12 +57,12 @@ jobs:
       # - name: Check Running Containers
         # run: docker ps -a
         
-      # - name: Check logs of docker
-        # run: docker logs sambaalpine
+      - name: Check logs of docker
+        run: docker logs ${{job.services.sambaalpine}}
       # - name: Check exec ip of docker
         # run: docker exec sambaalpine ifconfig
-      # - name: Check ping from busybox to sambaalpine
-        # run: docker exec busybox ping sambaalpine -w5
+      - name: Check ping from busybox to sambaalpine
+        run: docker exec ${{job.services.busybox}} ping sambaalpine -w3
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
       
@@ -69,7 +72,7 @@ jobs:
           dotnet-version: 2.2.108
      
       - name: Check acess to alpinesamba
-        run: ping sambaalpine
+        run: ping sambaalpine -n 3
         
       - name: Test
         run: dotnet test
