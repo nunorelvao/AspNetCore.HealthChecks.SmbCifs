@@ -58,7 +58,7 @@ jobs:
         # run: docker ps -a
         
       - name: Echo Services
-        run: echo  ${{ job.services.sambaalpine.env["DIRECTORIES"] }} ${{ job.services.busybox.env["VAR1"] }} ${{ job.services.alpine.env["VAR1"] }}
+        run: echo  ${{ job.services.sambaalpine.env['DIRECTORIES'] }} ${{ job.services.busybox.env['VAR1'] }} ${{ job.services.alpine.env['VAR1'] }}
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
