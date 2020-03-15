@@ -48,8 +48,8 @@ jobs:
   
   
     steps:
-      - name: GlobalChecks and Echos
-        uses: actions/checkout@v2
+      # - name: GlobalChecks and Echos
+        # uses: actions/checkout@v2
       
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
@@ -60,12 +60,12 @@ jobs:
       - name: Echo Services
         run: echo  ${{ job.services.sambaalpine }} ${{ job.services.busybox }} ${{ job.services.alpine }}
         
-      - name: Check logs of docker
-        run: docker logs sambaalpine
+      # - name: Check logs of docker
+        # run: docker logs sambaalpine
       # - name: Check exec ip of docker
         # run: docker exec sambaalpine ifconfig
-      - name: Check ping from busybox to sambaalpine
-        run: docker exec busybox ping sambaalpine -w3
+      # - name: Check ping from busybox to sambaalpine
+        # run: docker exec busybox ping sambaalpine -w3
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
       
