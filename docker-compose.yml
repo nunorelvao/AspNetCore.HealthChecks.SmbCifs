@@ -13,7 +13,7 @@ services:
     container_name: alpine
     command: tail -F anything
     #ports:
-    #  - "80:80"    
+    #  - "135:135"    
     hostname: alpine    
     environment:
       - VAR1=var1
@@ -22,13 +22,35 @@ services:
       
   busybox:
     image: "busybox"
-    container_name: busybox
+    container_name: busybox    
     volumes:
       - /data
     command: tail -F anything
     #ports:
-    #  - "80:80"    
+    #  - "135:135"    
     hostname: busybox    
+    environment:
+      - VAR1=var1
+    networks:
+      - mynetwork1
+    
+  powershell:
+    image: "mcr.microsoft.com/powershell:latest"
+    container_name: powershell
+    command: pwsh -Command Test-Connection -TargetName sambaalpine -IPv4 -Count 3 -Delay 3
+    stdin_open: true    
+    hostname: powershell    
+    environment:
+      - VAR1=var1
+    networks:
+      - mynetwork1
+      
+  dotnetsdk:
+    image: "mcr.microsoft.com/dotnet/core/sdk:2.2"
+    container_name: dotnetsdk
+    #command: pwsh -Command Test-Connection -TargetName sambaalpine -IPv4 -Count 3 -Delay 3
+    stdin_open: true    
+    hostname: dotnetsdk    
     environment:
       - VAR1=var1
     networks:
@@ -51,11 +73,11 @@ services:
       - DIRECTORIES=shared,public
       - WORKGROUP=WORKGROUP
       - SAMBA_NAME=sambaalpine
-      ###[SHARE_NAME]-> Define only if [DIRECTORIES] are not defined and only one volume shared
-      #- SHARE_NAME=shared     
-     networks:
-       - mynetwork1
-     depends_on:
-       - alpine
+      ###//only if Directories are not defined and only one volume shared  
+      #- SHARE_NAME=shared   
+    networks:
+      - mynetwork1
+    depends_on:
+      - alpine
     
     
