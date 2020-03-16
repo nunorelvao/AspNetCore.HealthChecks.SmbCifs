@@ -30,10 +30,7 @@ jobs:
   
     steps:
     
-      #IF NEEED TO CHECKOUT ALL REPO ON CONTAINER TO  DO ANYTHNG WITH ITS FILES EG AS CASE BELOW LAUCHING DOCKER COMPOSE
-      # - name: Checkout Repo to local runner
-        # uses: actions/checkout@v2
-      
+     
       # Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
@@ -57,16 +54,17 @@ jobs:
 
     
       - name: Setup .NET Core
+        uses: actions/checkout@v2
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 2.2.108
-        run: dotnet test
+
      
       # - name: Check access to alpinesamba
         # run: ping sambaalpine -n 3
         
-      # - name: Test
-        # run: dotnet test
+      - name: Test
+        run: dotnet test
 
       # - name: Build
         # run: dotnet build --configuration Release
