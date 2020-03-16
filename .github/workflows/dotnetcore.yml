@@ -3,7 +3,7 @@ name: .NET Core
 on: [push]
 
 jobs:
-  test:
+  testall:
 
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
@@ -39,11 +39,11 @@ jobs:
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
        
       ### WITHOUT DOCKER COMPOSE THIS CONTAINERS WILL NOT HAVE SAME NAME        
-      - name: Check Running Containers
-        run: docker ps -a
+      # - name: Check Running Containers
+        # run: docker ps -a
         
       - name: echo samba server image
-        run:  echo ${{ job.services.network }}  ${{ job.services.sambaalpine.env.DIRECTORIES }}
+        run:  echo "${{ job.services.network }}" | echo "${{ job.services.sambaalpine.env.DIRECTORIES }}"
        
         
       # - name: Check logs of docker
