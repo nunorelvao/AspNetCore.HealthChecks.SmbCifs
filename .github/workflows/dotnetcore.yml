@@ -43,7 +43,7 @@ jobs:
         # run: docker ps -a
         
       - name: echo samba server image
-        run:  echo ${{ job.services.network }}"| echo "{{ job.services.sambaalpine.env.DIRECTORIES }}       
+        run:  echo ${{ job.services.network }} | echo {{ job.services.sambaalpine.env.DIRECTORIES }}       
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
@@ -61,7 +61,7 @@ jobs:
           # dotnet-version: 2.2.108
      
       - name: Check access to alpinesamba
-        run: echo ping sambaalpine -n 3
+        run: ping sambaalpine -n 3
         
       - name: Test
         run: dotnet test
