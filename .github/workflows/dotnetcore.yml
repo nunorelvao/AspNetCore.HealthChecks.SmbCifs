@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     # IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     # IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-     container: actions/checkout@v2
+    # container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
     services:      
           
@@ -60,12 +60,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 2.2.108
+        run: dotnet test
      
       # - name: Check access to alpinesamba
         # run: ping sambaalpine -n 3
         
-      - name: Test
-        run: dotnet test
+      # - name: Test
+        # run: dotnet test
 
       # - name: Build
         # run: dotnet build --configuration Release
