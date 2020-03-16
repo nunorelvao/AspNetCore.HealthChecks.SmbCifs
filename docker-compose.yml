@@ -3,8 +3,8 @@
 volumes: 
     shareddata:
 
-#networks:
-    #rede: 
+networks:
+    mynetwork1: 
 
 services:
 
@@ -13,12 +13,12 @@ services:
     container_name: alpine
     command: tail -F anything
     #ports:
-    #  - "135:135"    
+    #  - "80:80"    
     hostname: alpine    
     environment:
       - VAR1=var1
-    #networks:
-      #- rede
+    networks:
+      - mynetwork1
       
   busybox:
     image: "busybox"
@@ -27,22 +27,22 @@ services:
       - /data
     command: tail -F anything
     #ports:
-    #  - "135:135"    
+    #  - "80:80"    
     hostname: busybox    
     environment:
       - VAR1=var1
-    #networks:
-      #- rede
-
+    networks:
+      - mynetwork1
+      
   sambaalpine:
     image: "stevepacker/samba-alpine"
     container_name: sambaalpine
     ports:
-      - "135:135"
-      - "137:137"
-      - "138:138"
-      - "139:139"
-      - "4445:445"
+      - "8135:135"
+      - "8137:137"
+      - "8138:138"
+      - "8139:139"
+      - "8445:445"
     hostname: sambaalpine
     volumes:
       - shareddata:/shared
@@ -51,10 +51,11 @@ services:
       - DIRECTORIES=shared,public
       - WORKGROUP=WORKGROUP
       - SAMBA_NAME=sambaalpine
-      #- SHARE_NAME=shared //only if Directories are not defined and only one volume shared
-    #networks:
-      #- rede
-    #depends_on:
-      #- alpine
+      ###[SHARE_NAME]-> Define only if [DIRECTORIES] are not defined and only one volume shared
+      #- SHARE_NAME=shared     
+     networks:
+       - mynetwork1
+     depends_on:
+       - alpine
     
     

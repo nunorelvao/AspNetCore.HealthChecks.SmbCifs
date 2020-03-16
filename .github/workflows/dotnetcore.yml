@@ -6,60 +6,44 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
-    
+    # IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
+    # IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
     # container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
-    services:
-
-      alpine:
-        image: "alpine:3.6"     
-        #ports:
-        #  - "135:135"      
-        env:
-          VAR1: var1 
-        options: --interactive          
-          
-      busybox:
-        image: "busybox"
-        volumes:
-          - /data
-        #ports:
-        #  - "135:135"      
-        env:
-          VAR1: var1
-        options: --interactive
+    services:      
           
       sambaalpine:
         image: "stevepacker/samba-alpine"
         ports:
-          - "135:135"
-          - "137:137"
-          - "138:138"
-          - "139:139"
-          - "445:445"
+          - "8135:135"
+          - "8137:137"
+          - "8138:138"
+          - "8139:139"
+          - "8445:445"
         volumes:
           - shareddata:/shared
           - ~/:/public
         env:
           DIRECTORIES: shared,public
           WORKGROUP: WORKGROUP
-          SAMBA_NAME: sambaalpine
-        # options: --network host
-
-  
+          SAMBA_NAME: sambaalpine        
   
     steps:
+    
+      #IF NEEED TO CHECKOUT ALL REPO ON CONTAINER TO  DO ANYTHNG WITH ITS FILES EG AS CASE BELOW LAUCHING DOCKER COMPOSE
       # - name: Checkout Repo to local runner
         # uses: actions/checkout@v2
       
+      # Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
       #- name: Run composer to add containers for functional Tests
         #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
-        
+       
+      # WITHOUT DOCKER COMPOSE THIS CONTAINERS WILL NOT HAVE SAME NAME        
       - name: Check Running Containers
         run: docker ps -a
         
       - name: echo samba server image
-        run:  echo '${{ job.test.services.sambaalpine.image }}' 
+        run:  echo ${{ job.test.services.sambaalpine.image }}
        
         
       # - name: Check logs of docker
@@ -72,16 +56,16 @@ jobs:
         # run: docker exec sambaalpine ls /shared
 
     
-      # - name: Setup .NET Core
-        # uses: actions/setup-dotnet@v1
-        # with:
-          # dotnet-version: 2.2.108
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 2.2.108
      
-      # - name: Check access to alpinesamba
-        # run: ping sambaalpine -n 3
+      - name: Check access to alpinesamba
+        run: ping sambaalpine -n 3
         
-      # - name: Test
-        # run: dotnet test
+      - name: Test
+        run: dotnet test
 
       # - name: Build
         # run: dotnet build --configuration Release

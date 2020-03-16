@@ -26,7 +26,10 @@ namespace FunctionalTests
 
         public FunctionalTest()
         {
+            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", "8137");
+            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", "127.0.0.1");
 
+            SharpCifs.Config.Apply();
         }
 
         [Fact]
@@ -41,9 +44,9 @@ namespace FunctionalTests
                     services.AddHealthChecks()
                         .AddSmbCifsBasicAuth(s =>
                         {
-                            s.Hostname = "sambaalpine";
+                            s.Hostname = "127.0.0.1:8445";
                             s.Domain = "WORKGROUP";
-                            s.Username = "";
+                            s.Username = "guest";
                             s.UserPassword = "";
                         }, "smbcifshc", null, new string[] { "smbcifshc" });
 
@@ -55,6 +58,8 @@ namespace FunctionalTests
                         Predicate = r => r.Tags.Contains("smbcifshc")
                     });
                 });
+
+
 
             var server = new TestServer(webHostBuilder);
 
