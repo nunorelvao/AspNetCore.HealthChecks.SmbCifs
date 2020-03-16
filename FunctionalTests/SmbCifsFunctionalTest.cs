@@ -27,7 +27,7 @@ namespace FunctionalTests
         public FunctionalTest()
         {
             SharpCifs.Config.SetProperty("jcifs.smb.client.lport", "8137");
-            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", "127.0.0.1");
+            // SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", "127.0.0.1");
 
             SharpCifs.Config.Apply();
         }

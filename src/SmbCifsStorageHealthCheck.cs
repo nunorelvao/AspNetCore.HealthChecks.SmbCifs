@@ -35,6 +35,7 @@ namespace AspNetCore.HealthChecks.SmbCifs
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return await Task.FromResult(new HealthCheckResult(context.Registration.FailureStatus, null, ex));
             }
         }
