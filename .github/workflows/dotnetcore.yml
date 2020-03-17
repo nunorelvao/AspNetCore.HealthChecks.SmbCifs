@@ -31,8 +31,8 @@ jobs:
     steps:
     
       #NEEED TO CHECKOUT ALL REPO ON CONTAINER TO  DO ANYTHNG WITH ITS FILES EG AS CASE BELOW LAUCHING DOCKER COMPOSE
-      - name: Checkout Repo to local runner
-        uses: actions/checkout@v2
+      - name: Checkout Repo to local runner        
+        uses: actions/checkout@v2        
       
       ### Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
       #- name: Run composer to add containers for functional Tests
@@ -42,10 +42,14 @@ jobs:
       # - name: Check Running Containers
         # run: docker ps -a
         
-      - name: echo GitHub Workspace
-        env:
-          PROJECT_PATH: $GITHUB_WORKSPACE
-        run:  echo  ${{env.PROJECT_PATH}}
+      - name: Export github.workspace to PROJECT_PATH      
+        run: echo ::set-env name=PROJECT_PATH::$GITHUB_WORKSPACE   
+
+      - name: echo GitHub Workspace Directly       
+        run:  echo ${{github.workspace}}        
+        
+      - name: echo GitHub Workspace From PROJECT_PATH    
+        run:  echo ${{env.PROJECT_PATH}}
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
