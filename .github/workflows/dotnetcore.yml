@@ -43,7 +43,7 @@ jobs:
         # run: docker ps -a
         
       - name: echo samba server image
-        run:  echo ${{ job.services.network }} | echo ${{ job.services.sambaalpine.env.DIRECTORIES }}       
+        run:  echo $GITHUB_WORKSPACE
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
@@ -68,11 +68,14 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release
+        
+      - name: Build
+        run: copy . /app
       
       - name: Publish NuGet
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+          PROJECT_FILE_PATH: $GITHUB_WORKSPACE/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
           VERSION_FILE_PATH: build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
         # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
         # TAG_COMMIT: true # Flag to enable / disalge git tagging
@@ -81,4 +84,4 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           
       - name: Push to NuGet
-        run: dotnet nuget push src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+        run: dotnet nuget push $GITHUB_WORKSPACE/src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
