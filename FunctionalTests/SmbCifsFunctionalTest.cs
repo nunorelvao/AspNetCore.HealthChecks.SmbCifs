@@ -42,7 +42,7 @@ namespace FunctionalTests
             var sambaPubPortNumber = "8445";
             _sambaWorkGroup = "WORKGROUP";
 
-            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
+
 
             try
             {
@@ -60,13 +60,13 @@ namespace FunctionalTests
             }
 
 
-
-            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
-
-            SharpCifs.Config.Apply();
-
-
             _sambaHostName = $"{sambaHostIp}:{sambaPubPortNumber}";
+
+
+            //SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
+            //SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
+            //SharpCifs.Config.Apply();
+
         }
 
         [Fact]

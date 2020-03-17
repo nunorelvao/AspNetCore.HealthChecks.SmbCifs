@@ -60,8 +60,8 @@ jobs:
         with:
           dotnet-version: 2.2.108
      
-      # - name: Check access to alpinesamba
-        # run: ping -4 -w3 sambaalpine
+      - name: Check access to alpinesamba
+        run: ping -4 -w3 sambaalpine
         
       - name: Test
         run: dotnet test
