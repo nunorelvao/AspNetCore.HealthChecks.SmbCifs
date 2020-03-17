@@ -39,7 +39,7 @@ namespace FunctionalTests
             string sambaHostIp;
             var sambaHostNameDsn = "sambaalpine";
             var sambaPortNumber = "8137";
-            var sambaPubPortNumber = "8139";
+            var sambaPubPortNumber = "8445";
             _sambaWorkGroup = "WORKGROUP";
 
 
