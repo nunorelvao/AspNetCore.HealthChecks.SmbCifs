@@ -10,23 +10,23 @@ jobs:
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
     #container: mycontainer
     
-    services:      
+    # services:      
           
-      sambaalpine:
-        image: "stevepacker/samba-alpine"
-        ports:
-          - "8135:135"
-          - "8137:137"
-          - "8138:138"
-          - "8139:139"
-          - "8445:445"
-        volumes:
-          - shareddata:/shared
-          - ~/:/public
-        env:
-          DIRECTORIES: shared,public
-          WORKGROUP: WORKGROUP
-          SAMBA_NAME: sambaalpine        
+      # sambaalpine:
+        # image: "stevepacker/samba-alpine"
+        # ports:
+          # - "8135:135"
+          # - "8137:137/udp"
+          # - "8138:138/udp"
+          # - "8139:139"
+          # - "8445:445"
+        # volumes:
+          # - shareddata:/shared
+          # - ~/:/public
+        # env:
+          # DIRECTORIES: shared,public
+          # WORKGROUP: WORKGROUP
+          # SAMBA_NAME: sambaalpine        
   
     steps:
     
@@ -35,12 +35,13 @@ jobs:
         uses: actions/checkout@v2        
       
       ### Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
-      #- name: Run composer to add containers for functional Tests
-        #run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
+      - name: Run composer to add containers for functional Tests
+        run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
        
-      ### WITHOUT DOCKER COMPOSE THIS CONTAINERS WILL NOT HAVE SAME NAME        
-      # - name: Check Running Containers
-        # run: docker ps -a
+      ### WITHOUT DOCKER COMPOSE THIS CONTAINERS WILL NOT HAVE SAME NAME  
+      
+      - name: Check Running Containers
+        run: docker ps -a
         
       - name: Export github.workspace to PROJECT_PATH      
         run: echo ::set-env name=PROJECT_PATH::$GITHUB_WORKSPACE   
@@ -51,14 +52,17 @@ jobs:
       - name: echo GitHub Workspace From PROJECT_PATH    
         run:  echo ${{env.PROJECT_PATH}}
         
-      # - name: Check logs of docker
-        # run: docker logs sambaalpine
-      # - name: Check exec ip of docker
-        # run: docker exec sambaalpine ifconfig
-      # - name: Check ping from busybox to sambaalpine
-        # run: docker exec busybox ping sambaalpine -w3
-      # - name: Check exec ls shared of docker
-        # run: docker exec sambaalpine ls /shared
+      - name: Check logs of docker
+        run: docker logs sambaalpine
+        
+      - name: Check exec ip of docker
+        run: docker exec sambaalpine ifconfig
+        
+      - name: Check ping from busybox to sambaalpine
+        run: docker exec busybox ping sambaalpine -w3
+        
+      - name: Check exec ls shared of docker
+        run: docker exec sambaalpine ls /shared
 
     ### THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
     ### Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
