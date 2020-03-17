@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 using AspNetCore.HealthChecks.SmbCifs.DependencyInjection;
 using SharpCifs.Netbios;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace FunctionalTests
 {
     //[Collection("execution")]
     public class FunctionalTest
     {
+        private readonly ITestOutputHelper _testOutputHelper;
         //private readonly ExecutionFixture _fixture;
 
 
@@ -30,8 +32,9 @@ namespace FunctionalTests
         private readonly string _sambaWorkGroup;
 
 
-        public FunctionalTest()
+        public FunctionalTest(ITestOutputHelper testOutputHelper)
         {
+            _testOutputHelper = testOutputHelper;
             string sambaHostIp;
             var sambaHostNameDsn = "sambaalpine";
             var sambaPortNumber = "8137";
@@ -45,7 +48,7 @@ namespace FunctionalTests
             {
                 naddr = NbtAddress.GetByName(sambaHostNameDsn);
                 IPAddress addr = naddr.GetInetAddress();
-                Console.WriteLine($"IP = {addr}");
+                _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
             catch (Exception)
@@ -66,6 +69,8 @@ namespace FunctionalTests
         [Fact]
         public async Task be_healthy_if_smbcifs_is_available()
         {
+
+            _testOutputHelper.WriteLine($"SAMBAHOSTNAME = {_sambaHostName}");
 
             var webHostBuilder = new WebHostBuilder()
                 .UseStartup<DefaultStartup>()
