@@ -68,10 +68,7 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release
-        
-      - name: Build
-        run: copy . /app
-      
+              
       - name: Publish NuGet
         uses: rohith/publish-nuget@v2
         with:
