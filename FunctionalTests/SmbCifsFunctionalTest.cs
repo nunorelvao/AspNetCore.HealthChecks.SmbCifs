@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
@@ -43,17 +44,19 @@ namespace FunctionalTests
 
             SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
 
-            NbtAddress naddr = null;
+            IPAddress addr = null;
             try
             {
-                naddr = NbtAddress.GetByName(sambaHostNameDsn);
-                IPAddress addr = naddr.GetInetAddress();
+                addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(addr =>
+                   addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
             catch (Exception)
             {
-                sambaHostIp = "127.0.0.1";
+                addr = Dns.GetHostEntry("localhost").AddressList.First(addr =>
+                   addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                sambaHostIp = addr.ToString();
             }
 
 
