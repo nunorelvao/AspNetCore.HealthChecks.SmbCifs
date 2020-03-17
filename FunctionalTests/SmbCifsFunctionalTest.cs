@@ -38,8 +38,8 @@ namespace FunctionalTests
             _testOutputHelper = testOutputHelper;
             string sambaHostIp;
             var sambaHostNameDsn = "sambaalpine";
-            //var sambaPortNumber = "8137";
-            var sambaPubPortNumber = "8445";
+            var sambaPortNumber = "8137";
+            var sambaPubPortNumber = "8139";
             _sambaWorkGroup = "WORKGROUP";
 
 
