@@ -56,6 +56,7 @@ namespace FunctionalTests
             {
                 addr = Dns.GetHostEntry("localhost").AddressList.First(addr =>
                    addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
 
