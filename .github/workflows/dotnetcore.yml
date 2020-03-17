@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-    #container: mcr.microsoft.com/dotnet/core/sdk:2.2
+    container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
     services:      
           
@@ -42,7 +42,7 @@ jobs:
       # - name: Check Running Containers
         # run: docker ps -a
         
-      - name: echo samba server image
+      - name: echo GitHub Workspace
         run:  echo $GITHUB_WORKSPACE
         
       # - name: Check logs of docker
@@ -55,10 +55,10 @@ jobs:
         # run: docker exec sambaalpine ls /shared
 
     ###THIS IS ONLY TO ADD TO PATH AND HAVE NUGGET REPO READY FOR DOT.NET VERSION SPECIFIED WITH uses: x.x.xxx
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.2.108
+      # - name: Setup .NET Core
+        # uses: actions/setup-dotnet@v1
+        # with:
+          # dotnet-version: 2.2.108
      
       # - name: Check access to alpinesamba
         # run: ping -4 -w3 sambaalpine
