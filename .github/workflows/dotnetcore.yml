@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-    container: mcr.microsoft.com/dotnet/core/sdk:2.2
+    container: mycontainer
     
     services:      
           
@@ -60,7 +60,9 @@ jobs:
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
 
-    ###THIS IS ONLY TO ADD TO PATH AND HAVE NUGGET REPO READY FOR DOT.NET VERSION SPECIFIED WITH uses: x.x.xxx
+    ### THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
+    ### Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
+    ### Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
       # - name: Setup .NET Core
         # uses: actions/setup-dotnet@v1
         # with:
