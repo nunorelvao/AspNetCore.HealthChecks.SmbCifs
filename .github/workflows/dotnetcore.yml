@@ -72,7 +72,7 @@ jobs:
       - name: Publish NuGet
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: ${{GITHUB_WORKSPACE}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+          PROJECT_FILE_PATH: ${{env.GITHUB_WORKSPACE}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
           VERSION_FILE_PATH: build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
         # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
         # TAG_COMMIT: true # Flag to enable / disalge git tagging
