@@ -43,7 +43,9 @@ jobs:
         # run: docker ps -a
         
       - name: echo GitHub Workspace
-        run:  echo $GITHUB_WORKSPACE
+        env:
+          PROJECT_PATH: $GITHUB_WORKSPACE
+        run:  echo  ${{env.PROJECT_PATH}}
         
       # - name: Check logs of docker
         # run: docker logs sambaalpine
@@ -69,9 +71,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
               
-      - name: Publish NuGet
-        env:
-          PROJECT_PATH: $GITHUB_WORKSPACE
+      - name: Publish NuGet        
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
