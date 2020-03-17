@@ -75,15 +75,15 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
               
-      # - name: Publish NuGet        
-        # uses: rohith/publish-nuget@v2
-        # with:
-          # PROJECT_FILE_PATH: ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
-          # VERSION_FILE_PATH: ${{env.PROJECT_PATH}}/build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
-          # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
-        # # TAG_COMMIT: true # Flag to enable / disable git tagging
-        # # TAG_FORMAT: v* # Format of the git tag v*, [*] gets replaced with version     
-          # NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      - name: Publish NuGet        
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+          VERSION_FILE_PATH: ${{env.PROJECT_PATH}}/build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
+          VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+        # TAG_COMMIT: true # Flag to enable / disable git tagging
+        # TAG_FORMAT: v* # Format of the git tag v*, [*] gets replaced with version     
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           
       - name: Push to NuGet
-        run: dotnet nuget push ${{env.PROJECT_PATH}}/src/bin/release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+        run: dotnet nuget push ${{env.PROJECT_PATH}}/src/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
