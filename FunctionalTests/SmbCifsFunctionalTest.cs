@@ -46,6 +46,7 @@ namespace FunctionalTests
 
             try
             {
+                _testOutputHelper.WriteLine($"GET IP FROM DSN {sambaHostNameDsn}");
                 IPAddress addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(a =>
                   a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
@@ -53,10 +54,12 @@ namespace FunctionalTests
             }
             catch (Exception)
             {
+                _testOutputHelper.WriteLine("GET LOCALHOST IP");
                 IPAddress addr = Dns.GetHostEntry("localhost").AddressList.First(a =>
                   a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
+                sambaHostIp = "172.18.0.4";
             }
 
 
