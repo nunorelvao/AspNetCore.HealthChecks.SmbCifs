@@ -38,7 +38,7 @@ namespace FunctionalTests
             _testOutputHelper = testOutputHelper;
             string sambaHostIp;
             var sambaHostNameDsn = "sambaalpine";
-            var sambaPortNumber = "8137";
+            //var sambaPortNumber = "8137";
             var sambaPubPortNumber = "8445";
             _sambaWorkGroup = "WORKGROUP";
 
@@ -63,9 +63,9 @@ namespace FunctionalTests
             _sambaHostName = $"{sambaHostIp}:{sambaPubPortNumber}";
 
 
-            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
-            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
-            SharpCifs.Config.Apply();
+            //SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
+            //SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
+            //SharpCifs.Config.Apply();
 
         }
 
