@@ -6,6 +6,7 @@ namespace FunctionalTests.Base
     {
         public bool IsAppVeyorExecution { get; private set; }
 
+
         public ExecutionFixture()
         {
             IsAppVeyorExecution = Environment.GetEnvironmentVariable("Appveyor")?.ToUpperInvariant() == "TRUE";

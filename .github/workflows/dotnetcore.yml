@@ -3,7 +3,7 @@ name: .NET Core
 on: [push]
 
 jobs:
-  testall:
+  testallandbuild:
 
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
@@ -66,19 +66,19 @@ jobs:
       - name: Test
         run: dotnet test
 
-      # - name: Build
-        # run: dotnet build --configuration Release
+      - name: Build
+        run: dotnet build --configuration Release
       
-      # - name: Publish NuGet
-        # uses: rohith/publish-nuget@v2
-        # with:
-          # PROJECT_FILE_PATH: src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
-          # VERSION_FILE_PATH: build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
-        # # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
-        # # TAG_COMMIT: true # Flag to enable / disalge git tagging
-        # # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
-        # # NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key      
-          # NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      - name: Publish NuGet
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+          VERSION_FILE_PATH: build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
+        # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+        # TAG_COMMIT: true # Flag to enable / disalge git tagging
+        # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
+        # NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key      
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           
-      # - name: Push to NuGet
-        # run: dotnet nuget push src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+      - name: Push to NuGet
+        run: dotnet nuget push src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org

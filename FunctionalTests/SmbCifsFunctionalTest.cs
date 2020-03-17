@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using AspNetCore.HealthChecks.SmbCifs.DependencyInjection;
+using SharpCifs.Netbios;
 using Xunit;
 
 namespace FunctionalTests
@@ -16,7 +18,7 @@ namespace FunctionalTests
     //[Collection("execution")]
     public class FunctionalTest
     {
-        private readonly ExecutionFixture _fixture;
+        //private readonly ExecutionFixture _fixture;
 
 
         //public FunctionalTest(ExecutionFixture fixture)
@@ -24,12 +26,41 @@ namespace FunctionalTests
         //    _fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
         //}
 
+        private readonly string _sambaHostName;
+        private readonly string _sambaWorkGroup;
+
+
         public FunctionalTest()
         {
-            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", "8137");
-            // SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", "127.0.0.1");
+            string sambaHostIp;
+            var sambaHostNameDsn = "sambaalpine";
+            var sambaPortNumber = "8137";
+            var sambaPubPortNumber = "8445";
+            _sambaWorkGroup = "WORKGROUP";
+
+            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
+
+            NbtAddress naddr = null;
+            try
+            {
+                naddr = NbtAddress.GetByName(sambaHostNameDsn);
+                IPAddress addr = naddr.GetInetAddress();
+                Console.WriteLine($"IP = {addr}");
+                sambaHostIp = addr.ToString();
+            }
+            catch (Exception)
+            {
+                sambaHostIp = "127.0.0.1";
+            }
+
+
+
+            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
 
             SharpCifs.Config.Apply();
+
+
+            _sambaHostName = $"{sambaHostIp}:{sambaPubPortNumber}";
         }
 
         [Fact]
@@ -44,8 +75,8 @@ namespace FunctionalTests
                     services.AddHealthChecks()
                         .AddSmbCifsBasicAuth(s =>
                         {
-                            s.Hostname = "172.18.0.3:8445";
-                            s.Domain = "WORKGROUP";
+                            s.Hostname = _sambaHostName;
+                            s.Domain = _sambaWorkGroup;
                             s.Username = "guest";
                             s.UserPassword = "";
                         }, "smbcifshc", null, new string[] { "smbcifshc" });
@@ -66,6 +97,7 @@ namespace FunctionalTests
             var response = await server.CreateRequest($"/health")
                 .GetAsync();
 
+
             response.StatusCode
                 .Should().Be(HttpStatusCode.OK);
 
@@ -83,10 +115,10 @@ namespace FunctionalTests
                     services.AddHealthChecks()
                         .AddSmbCifsBasicAuth(s =>
                         {
-                            s.Hostname = "ERRORSERVER";
-                            s.Domain = "";
-                            s.Username = "";
-                            s.UserPassword = "";
+                            s.Hostname = "0.0.0.0:0000";
+                            s.Domain = "FAKEDOMAIN";
+                            s.Username = "anyuser";
+                            s.UserPassword = "anypassword";
                         }, "smbcifshc", null, new string[] { "smbcifshc" });
 
                 })
