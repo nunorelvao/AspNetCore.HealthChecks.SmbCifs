@@ -46,15 +46,15 @@ namespace FunctionalTests
 
             try
             {
-                IPAddress addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(addr =>
-                  addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                IPAddress addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(a =>
+                  a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
             catch (Exception)
             {
-                IPAddress addr = Dns.GetHostEntry("localhost").AddressList.First(addr =>
-                  addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                IPAddress addr = Dns.GetHostEntry("localhost").AddressList.First(a =>
+                  a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
