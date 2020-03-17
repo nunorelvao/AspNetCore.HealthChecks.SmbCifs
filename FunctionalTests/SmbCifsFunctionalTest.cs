@@ -44,7 +44,7 @@ namespace FunctionalTests
                     services.AddHealthChecks()
                         .AddSmbCifsBasicAuth(s =>
                         {
-                            s.Hostname = "localhost:8445";
+                            s.Hostname = "172.18.0.3:8445";
                             s.Domain = "WORKGROUP";
                             s.Username = "guest";
                             s.UserPassword = "";
