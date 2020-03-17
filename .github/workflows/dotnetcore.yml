@@ -54,7 +54,7 @@ jobs:
       # - name: Check exec ls shared of docker
         # run: docker exec sambaalpine ls /shared
 
-    ###THIS IS ONLY TO ADD TO PATH AND HAVE NUGGET REPO READY FOR DOT.NET VERSION sEPCIFIED WITH uses: x.x.xxx
+    ###THIS IS ONLY TO ADD TO PATH AND HAVE NUGGET REPO READY FOR DOT.NET VERSION SPECIFIED WITH uses: x.x.xxx
       # - name: Setup .NET Core
         # uses: actions/setup-dotnet@v1
         # with:
