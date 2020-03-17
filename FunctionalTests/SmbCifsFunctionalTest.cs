@@ -44,18 +44,17 @@ namespace FunctionalTests
 
             SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
 
-            IPAddress addr = null;
             try
             {
-                addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(addr =>
-                   addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                IPAddress addr = Dns.GetHostEntry(sambaHostNameDsn).AddressList.First(addr =>
+                  addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
             catch (Exception)
             {
-                addr = Dns.GetHostEntry("localhost").AddressList.First(addr =>
-                   addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                IPAddress addr = Dns.GetHostEntry("localhost").AddressList.First(addr =>
+                  addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
             }
