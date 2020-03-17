@@ -63,9 +63,9 @@ namespace FunctionalTests
             _sambaHostName = $"{sambaHostIp}:{sambaPubPortNumber}";
 
 
-            //SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
-            //SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
-            //SharpCifs.Config.Apply();
+            SharpCifs.Config.SetProperty("jcifs.smb.client.lport", sambaPortNumber);
+            SharpCifs.Config.SetProperty("jcifs.smb.client.laddr", sambaHostIp);
+            SharpCifs.Config.Apply();
 
         }
 
