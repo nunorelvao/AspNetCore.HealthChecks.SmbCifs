@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-    #container: mcr.microsoft.com/dotnet/core/sdk:2.2
+    container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
     services:      
           
