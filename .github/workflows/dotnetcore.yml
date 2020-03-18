@@ -65,7 +65,7 @@ jobs:
         # run: docker exec sambaalpine ls /shared
                 
       - name: List networks
-        run: docker network ls
+        run: /usr/bin/docker network ls
         
       # - name: Allow Ip Fowarding on host
         # run: sudo sysctl net.ipv4.conf.all.forwarding=1
