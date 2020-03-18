@@ -1,9 +1,7 @@
 name: TEST AND BUILD
 
 on:
-  push:
-    branches:
-      - master # Default release branch
+  create
 
 jobs:
   testandbuild:
