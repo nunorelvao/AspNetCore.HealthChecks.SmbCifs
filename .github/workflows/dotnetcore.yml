@@ -85,10 +85,13 @@ jobs:
         run: ping -4 -w3 sambaalpine
                       
       - name: Test
-        run: dotnet test
+        run: dotnet test 
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
+      
+      - name: Pack (Create Nuget)
+        run: dotnet pack --no-build -c Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj -o .
               
       - name: Publish NuGet        
         uses: rohith/publish-nuget@v2
@@ -96,9 +99,11 @@ jobs:
           PROJECT_FILE_PATH: ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
           VERSION_FILE_PATH: ${{env.PROJECT_PATH}}/build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
           VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
-        # TAG_COMMIT: true # Flag to enable / disable git tagging
-        # TAG_FORMAT: v* # Format of the git tag v*, [*] gets replaced with version     
+          # VERSION_STATIC: Bypasses version resolution; useful for external providers like Nerdbank.GitVersioning
+          # TAG_COMMIT: true # Flag to enable / disable git tagging
+          # TAG_FORMAT: v* # Format of the git tag v*, [*] gets replaced with version     
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          PACKAGE_NAME: AspNetCore.HealthChecks.SmbCifs #NuGet package name, required when it's different from project name. Defaults to project name
           
       - name: Push to NuGet
-        run: dotnet nuget push ${{env.PROJECT_PATH}}/src/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+        run: dotnet nuget push ${{env.PROJECT_PATH}}/src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org

@@ -59,7 +59,6 @@ namespace FunctionalTests
                   a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 _testOutputHelper.WriteLine($"IP = {addr}");
                 sambaHostIp = addr.ToString();
-                sambaHostIp = "172.18.0.4";
             }
 
 
