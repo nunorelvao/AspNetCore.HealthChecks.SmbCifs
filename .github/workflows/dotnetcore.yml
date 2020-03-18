@@ -81,8 +81,8 @@ jobs:
         # with:
           # dotnet-version: 2.2.108
      
-      - name: Check access to sambaalpine
-        run: ping -4 -w3 sambaalpine
+      # - name: Check access to sambaalpine
+        # run: ping -4 -w3 sambaalpine
         
       - name: Check access to sambaalpine
         run: ping -4 -w3 172.18.0.4
