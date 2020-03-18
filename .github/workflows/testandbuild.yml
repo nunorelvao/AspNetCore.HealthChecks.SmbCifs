@@ -1,4 +1,4 @@
-name: TEST AND BUILD
+name: Unit Test & Functional Tests
 
 on:
   push:

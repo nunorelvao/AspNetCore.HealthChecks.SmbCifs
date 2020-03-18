@@ -1,4 +1,4 @@
-name: pack nuget
+name: Pack&Publish nuget on new version
 
 on:
   repository_dispatch:
