@@ -8,6 +8,7 @@ volumes:
   # default:
     # external:
       # name: env_rede
+      
 ### Create a new network      
 networks:
   mynetwork1:
@@ -19,7 +20,7 @@ services:
     container_name: alpine
     command: tail -F anything
     #ports:
-    #  - "135:135"    
+    #  - "80:80"    
     hostname: alpine    
     environment:
       - VAR1=var1
@@ -33,7 +34,7 @@ services:
       - /data
     command: tail -F anything
     #ports:
-    #  - "135:135"    
+    #  - "80:80"    
     hostname: busybox    
     environment:
       - VAR1=var1
