@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-    container: busybox
+    container: mcr.microsoft.com/dotnet/core/sdk:2.2
     
     services:      
           
@@ -76,10 +76,10 @@ jobs:
     ## THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
     ## Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
     ## Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.2.108
+      # - name: Setup .NET Core
+        # uses: actions/setup-dotnet@v1
+        # with:
+          # dotnet-version: 2.2.108
      
       - name: Check access to sambaalpine
         run: ping -4 -w3 sambaalpine
