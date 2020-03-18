@@ -8,25 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     ### IF NEED TO RUN ALL ON SAME CONTAINER SERVICES WILL BE REACHABLE BY DNS OF ITS SERVICE NAME eg: sambaalpine, aplpine, busybox, etc...
     ### IF NOT DEFINED WILL BE REACHABLE BY  localhost:PORT
-    #container: mycontainer
+    container: busybox
     
-    # services:      
+    services:      
           
-      # sambaalpine:
-        # image: "stevepacker/samba-alpine"
-        # ports:
-          # - "8135:135"
-          # - "8137:137/udp"
-          # - "8138:138/udp"
-          # - "8139:139"
-          # - "8445:445"
-        # volumes:
-          # - shareddata:/shared
-          # - ~/:/public
-        # env:
-          # DIRECTORIES: shared,public
-          # WORKGROUP: WORKGROUP
-          # SAMBA_NAME: sambaalpine        
+      sambaalpine:
+        image: "stevepacker/samba-alpine"
+        ports:
+          - "8135:135"
+          - "8137:137/udp"
+          - "8138:138/udp"
+          - "8139:139"
+          - "8445:445"
+        volumes:
+          - shareddata:/shared
+          - ~/:/public
+        env:
+          DIRECTORIES: shared,public
+          WORKGROUP: WORKGROUP
+          SAMBA_NAME: sambaalpine        
   
     steps:
     
@@ -35,13 +35,13 @@ jobs:
         uses: actions/checkout@v2        
       
       ### Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
-      - name: Run composer to add containers for functional Tests
-        run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
+      # - name: Run composer to add containers for functional Tests
+        # run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
        
       ### WITHOUT DOCKER COMPOSE THIS CONTAINERS WILL NOT HAVE SAME NAME  
       
-      - name: Check Running Containers
-        run: docker ps -a
+      # - name: Check Running Containers
+        # run: docker ps -a
         
       - name: Export github.workspace to PROJECT_PATH      
         run: echo ::set-env name=PROJECT_PATH::$GITHUB_WORKSPACE   
@@ -52,41 +52,38 @@ jobs:
       - name: echo GitHub Workspace From PROJECT_PATH    
         run:  echo ${{env.PROJECT_PATH}}
         
-      - name: Check logs of docker
-        run: docker logs sambaalpine
+      # - name: Check logs of docker
+        # run: docker logs sambaalpine
         
-      - name: Check exec ip of docker
-        run: docker exec sambaalpine ifconfig
+      # - name: Check exec ip of docker
+        # run: docker exec sambaalpine ifconfig
         
-      - name: Check ping from busybox to sambaalpine
-        run: docker exec busybox ping sambaalpine -w3
+      # - name: Check ping from busybox to sambaalpine
+        # run: docker exec busybox ping sambaalpine -w3
         
-      - name: Check exec ls shared of docker
-        run: docker exec sambaalpine ls /shared
+      # - name: Check exec ls shared of docker
+        # run: docker exec sambaalpine ls /shared
                 
-      - name: List networks
-        run: docker network ls
+      # - name: List networks
+        # run: docker network ls
         
-      - name: Allow Ip Fowarding on host
-        run: sudo sysctl net.ipv4.conf.all.forwarding=1
+      # - name: Allow Ip Fowarding on host
+        # run: sudo sysctl net.ipv4.conf.all.forwarding=1
         
-      - name: Change iptabtles policy on host
-        run: sudo iptables -P FORWARD ACCEPT
+      # - name: Change iptabtles policy on host
+        # run: sudo iptables -P FORWARD ACCEPT
 
-    ### THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
-    ### Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
-    ### Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
-      # - name: Setup .NET Core
-        # uses: actions/setup-dotnet@v1
-        # with:
-          # dotnet-version: 2.2.108
+    ## THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
+    ## Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
+    ## Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 2.2.108
      
-      # - name: Check access to sambaalpine
-        # run: ping -4 -w3 sambaalpine
-        
       - name: Check access to sambaalpine
-        run: ping -4 -w3 172.18.0.4
-        
+        run: ping -4 -w3 sambaalpine
+                      
       - name: Test
         run: dotnet test
 

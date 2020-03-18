@@ -3,13 +3,19 @@
 volumes: 
     shareddata:
 
+### Join existing network "env_rede"
+# networks:
+  # default:
+    # external:
+      # name: env_rede
+### Create a new network      
 networks:
-    mynetwork1: 
+  mynetwork1:
 
 services:
 
   alpine:
-    image: "alpine:3.6"    
+    image: "alpine:latest"    
     container_name: alpine
     command: tail -F anything
     #ports:
@@ -33,8 +39,7 @@ services:
       - VAR1=var1
     networks:
       - mynetwork1
-     
-      
+           
   # dotnetsdk:
     # image: "mcr.microsoft.com/dotnet/core/sdk:2.2"
     # container_name: dotnetsdk
@@ -67,8 +72,7 @@ services:
       #- SHARE_NAME=shared   
     networks:
       - mynetwork1
-    depends_on:
-      - alpine
+   
       
   powershell:
     image: "mcr.microsoft.com/powershell:latest"
