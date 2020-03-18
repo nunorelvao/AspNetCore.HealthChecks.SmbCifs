@@ -1,6 +1,9 @@
 name: TEST AND BUILD
 
-on: create
+on:
+  push:
+    branches:
+      - master
   
 jobs:
   testandbuild:
@@ -80,8 +83,7 @@ jobs:
       - name: Test
         run: dotnet test 
             
-      
-      ### NEXT STEPS ARE DONE ALREADY ON packnuget.yml with automated actions
+      ### NEXT STEPS ARE DONE ALREADY ON packnuget.yml with automated actions dispatched
       # - name: Build
         # run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
       
@@ -90,3 +92,11 @@ jobs:
              
       # - name: Push to NuGet
         # run: dotnet nuget push ${{env.PROJECT_PATH}}/src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+        
+      - name: Repo Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: nunorelvao/AspNetCore.HealthChecks.SmbCifs
+          event-type: testandbuildcomplete
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

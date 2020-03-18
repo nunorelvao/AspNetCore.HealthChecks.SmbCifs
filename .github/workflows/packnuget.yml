@@ -1,8 +1,8 @@
 name: pack nuget
 on:
-  push:
-    branches:
-      - master # Default release branch
+  repository_dispatch:
+    types: [testandbuildcomplete]
+    
 jobs:
   publish:
     name: list on nuget
@@ -10,12 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: test git create tag
-        run: git tag testtag2
-      
-      - name: test git push tag
-        run: git push origin testtag2
-
       # Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
       # Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
       # - name: Setup dotnet
