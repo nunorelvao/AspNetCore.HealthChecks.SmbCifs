@@ -63,6 +63,15 @@ jobs:
         
       - name: Check exec ls shared of docker
         run: docker exec sambaalpine ls /shared
+                
+      - name: List networks
+        run: docker network ls
+        
+      - name: Allow Ip Fowarding on host
+        run: sysctl net.ipv4.conf.all.forwarding=1
+        
+      - name: Change iptabtles policy on host
+        run: sudo iptables -P FORWARD ACCEPT
 
     ### THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
     ### Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
@@ -72,7 +81,10 @@ jobs:
         # with:
           # dotnet-version: 2.2.108
      
-      - name: Check access to alpinesamba
+      - name: Check access to sambaalpine
+        run: ping -4 -w3 sambaalpine
+        
+      - name: Check access to sambaalpine
         run: ping -4 -w3 172.18.0.4
         
       - name: Test
