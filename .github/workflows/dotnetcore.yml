@@ -1,7 +1,9 @@
-name: TEST AND BUILD
+name: TEST AND BUILD ON TAG PUSH
 
 on:
-  create
+  push:
+    braches:
+      - master #defaut release branch
 
 jobs:
   testandbuild:
@@ -32,8 +34,8 @@ jobs:
     steps:
     
       #NEEED TO CHECKOUT ALL REPO ON CONTAINER TO  DO ANYTHNG WITH ITS FILES EG AS CASE BELOW LAUCHING DOCKER COMPOSE
-      - name: Checkout Repo to local runner        
-        uses: actions/checkout@v2        
+      #- name: Checkout Repo to local runner        
+      - uses: actions/checkout@v2        
       
       ### Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
       # - name: Run composer to add containers for functional Tests
@@ -87,12 +89,24 @@ jobs:
                       
       - name: Test
         run: dotnet test 
+        
+      - name: publish on version change
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
+          VERSION_FILE_PATH: ${{env.PROJECT_PATH}}/build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
+          # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+          # VERSION_STATIC: Bypasses version resolution; useful for external providers like Nerdbank.GitVersioning
+          # TAG_COMMIT: true # Flag to enable / disalge git tagging
+          # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
+          # PACKAGE_NAME: NuGet package name, required when it's different from project name. Defaults to project name
 
-      - name: Build
-        run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
+      # - name: Build
+        # run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
       
-      - name: Pack (Create Nuget)
-        run: dotnet pack --no-build -c Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj -o .
+      # - name: Pack (Create Nuget)
+        # run: dotnet pack --no-build -c Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj -o .
              
-      - name: Push to NuGet
-        run: dotnet nuget push ${{env.PROJECT_PATH}}/src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
+      # - name: Push to NuGet
+        # run: dotnet nuget push ${{env.PROJECT_PATH}}/src/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://nuget.org
