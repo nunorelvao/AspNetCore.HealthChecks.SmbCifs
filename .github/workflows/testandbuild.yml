@@ -1,8 +1,7 @@
 name: TEST AND BUILD
 
-on:
-  create
-
+on: create
+  
 jobs:
   testandbuild:
 
@@ -35,7 +34,7 @@ jobs:
       - name: Checkout Repo to local runner        
         uses: actions/checkout@v2        
       
-      ### Eg: LAUNCH DOCKER COMPOSE BEWARE NETWORK WILL BE THE ONE DEFINED IN THE docker compose file and nex container may not reach it
+      ### Eg: LAUNCH DOCKER COMPOSE -> BEWARE NETWORK {BRISGE MODE} WILL BE THE ONE DEFINED IN THE docker compose file and runner may not reach containers
       # - name: Run composer to add containers for functional Tests
         # run: docker-compose -f docker-compose.yml -p sambaalpine up -d --build 
        
@@ -80,7 +79,9 @@ jobs:
                       
       - name: Test
         run: dotnet test 
-        
+            
+      
+      ### NEXT STEPS ARE DONE ALREADY ON packnuget.yml with automated actions
       # - name: Build
         # run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
       
