@@ -1,7 +1,7 @@
 name: pack nuget
 on:
   repository_dispatch:
-    types: [testandbuildcomplete]
+    types: testandbuildcomplete
     
 jobs:
   publish:
