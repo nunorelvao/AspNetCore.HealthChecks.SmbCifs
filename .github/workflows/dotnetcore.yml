@@ -68,7 +68,7 @@ jobs:
         run: docker network ls
         
       - name: Allow Ip Fowarding on host
-        run: sysctl net.ipv4.conf.all.forwarding=1
+        run: sudo sysctl net.ipv4.conf.all.forwarding=1
         
       - name: Change iptabtles policy on host
         run: sudo iptables -P FORWARD ACCEPT
