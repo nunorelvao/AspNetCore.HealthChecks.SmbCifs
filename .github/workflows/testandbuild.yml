@@ -1,9 +1,7 @@
 name: TEST AND BUILD
 
 on:
-  push:
-    braches:
-      - master #defaut release branch
+  create
 
 jobs:
   testandbuild:
@@ -76,32 +74,13 @@ jobs:
       # - name: Change iptabtles policy on host
         # run: sudo iptables -P FORWARD ACCEPT
 
-    ## THIS IS ONLY TO ADD TO PATH AND HAVE [dotnet cli] FOR VERSION SPECIFIED WITH uses: x.x.xxx
-    ## Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
-    ## Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
-      # - name: Setup .NET Core
-        # uses: actions/setup-dotnet@v1
-        # with:
-          # dotnet-version: 2.2.108
-     
+        
       - name: Check access to sambaalpine
         run: ping -4 -w3 sambaalpine
                       
       - name: Test
         run: dotnet test 
-    ### THIS PACKAGE ONLY PUBLISHES IF A NEW TAG IS CREATED (IN THIS CASE IS READING VESION FROM REPO COMMIT IF NEWER CREATES A NEW TAG ALSO ON REPO)
-      - name: publish on version change
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: src/AspNetCore.HealthChecks.SmbCifs.csproj # Relative to repository root
-          VERSION_FILE_PATH: build/dependencies.props # Filepath with version info, relative to repository root. Defaults to project file
-          # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
-          # VERSION_STATIC: Bypasses version resolution; useful for external providers like Nerdbank.GitVersioning
-          # TAG_COMMIT: true # Flag to enable / disalge git tagging
-          # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
-          # PACKAGE_NAME: NuGet package name, required when it's different from project name. Defaults to project name
-
+        
       # - name: Build
         # run: dotnet build --configuration Release ${{env.PROJECT_PATH}}/src/AspNetCore.HealthChecks.SmbCifs.csproj
       
