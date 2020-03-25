@@ -13,27 +13,39 @@ Install-Package AspNetCore.HealthChecks.SmbCifs
 
 >SAMPLE CODE USING SIMPLE CREDENTIALS
 ```csharp
+//OLD VERSION (2.0.5 AND LOWER)
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddHealthChecks()
                 .AddSmbCifs(
-                    hostname: "myhostname.domain.subdomain" or IP "xxx.xxx.xxx.xxx",
+                    hostname: "myhostname.domain.subdomain", //or IP "xxx.xxx.xxx.xxx",
                     domain: "domain",
                     username: "username",
                     password: "password",
-                    name: "smbcifs",
+                    name: "smbcifshc",
                     failureStatus: HealthStatus.Degraded,
                     tags: new string[] { "smbcifs-service" })
 }
+
+//NEW VERSION (2.0.6 AND UP)
+ services.AddHealthChecks()
+                .AddSmbCifsBasicAuth(s =>
+                {
+                    s.Hostname = "myhostname.domain.subdomain"; //or IP "xxx.xxx.xxx.xxx";
+                    s.Domain = "domain";
+                    s.Username = "username";
+                    s.UserPassword = "password";
+                }, "smbcifshc", null, new string[] { "smbcifs-service" });
 ```
 
 >SAMPLE CODE USING ADVANCED CREDENTIALS
 ```csharp
+//OLD VERSION (2.0.5 AND LOWER)
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddHealthChecks()
                 .AddSmbCifs(
-                    hostname: "myhostname.domain.subdomain" or IP "xxx.xxx.xxx.xxx",
+                    hostname: "myhostname.domain.subdomain", //or IP "xxx.xxx.xxx.xxx",
                     domain: "domain",
                     username: "username",
                     challenge: "byte[] challenge",
@@ -43,6 +55,17 @@ public void ConfigureServices(IServiceCollection services)
                     failureStatus: HealthStatus.Degraded,
                     tags: new string[] { "smbcifs-service" })
 }
+//NEW VERSION (2.0.6 AND UP)
+    services.AddHealthChecks()
+                .AddSmbCifsExtendedAuth(s =>
+                {
+                    s.Hostname = "myhostname.domain.subdomain"; //or IP "xxx.xxx.xxx.xxx";
+                    s.Domain = "domain";
+                    s.Username = "username";
+                    s.Challenge = Convert.FromBase64CharArray("xxxx".ToCharArray(), 0, "xxxx".Length);
+                    s.AnsiHash = Convert.FromBase64CharArray("xxxx".ToCharArray(), 0, "xxxx".Length);
+                    s.UnicodeHash = Convert.FromBase64CharArray("xxxx".ToCharArray(), 0, "xxxx".Length);
+                }, "smbcifshc", null, new string[] { "smbcifs-service" });
 ```
 
 >ABOUT THE AUTHOR
